@@ -89,9 +89,21 @@ echo "If error,you need to compile it yourself"
 echo "cd $CURRENT_DIR/bundle/YouCompleteMe/ && python install.py --clang-completer"
 cd $CURRENT_DIR/bundle/YouCompleteMe/
 git submodule update --init --recursive
+darwin=false;
+case "$(uname)" in 
+    Darwin*)
+        darwin=true
+        ;;
+esae
 if [ `which clang` ]   # check system clang
 then
-    python install.py --clang-completer --system-libclang   # use system clang
+
+    if darwin 
+    then
+        python install.py --clang-completer
+    else
+        python install.py --clang-completer --system-libclang   # use system clang
+    fi
 else
     python install.py --clang-completer
 fi
