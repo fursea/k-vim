@@ -74,7 +74,6 @@ set nobackup
 " 关闭交换文件
 set noswapfile
 
-
 " TODO: remove this, use gundo
 " create undo file
 " if has('persistent_undo')
@@ -88,7 +87,7 @@ set noswapfile
   " " set undodir=/tmp/vimundo/
 " endif
 
-set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
+set wildignore=*.swp,*.bak,*.pyc,*.class,.svn,.git
 
 " 突出显示当前列
 set cursorcolumn
@@ -337,6 +336,8 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
+"when with inster mode make <C-f> as right
+inoremap <C-f> <Right>
 " F1 - F6 设置
 
 " F1 废弃这个键,防止调出系统帮助
@@ -425,7 +426,7 @@ cnoremap <C-e> <End>
 
 " 搜索相关
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+" map <space> /
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
@@ -666,7 +667,7 @@ set background=dark
 set t_Co=256
 
 colorscheme solarized
-" colorscheme molokai
+ " colorscheme molokai
 " colorscheme desert
 
 
