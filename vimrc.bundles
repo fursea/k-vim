@@ -245,7 +245,8 @@ endif
 
 if count(g:bundle_groups, 'html')
     " ###### emmet HTML complete #########
-    " Plug "mattn/emmet-vim"
+    Plug 'mattn/emmet-vim'
+    Plug 'mattn/webapi-vim'
 endif
 
 if count(g:bundle_groups, 'nginx')
@@ -289,7 +290,7 @@ call plug#end()
     " 中等
     " error code: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
     let g:syntastic_python_checkers=['pyflakes', 'pep8'] " 使用pyflakes,速度比pylint快
-    let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
+    " let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
     " 重量级, 但是足够强大, 定制完成后相当个性化
     " pylint codes: http://pylint-messages.wikidot.com/all-codes
     " let g:syntastic_python_checkers=['pyflakes', 'pylint'] " 使用pyflakes,速度比pylint快
@@ -352,7 +353,7 @@ call plug#end()
 
 " YouCompleteMe {{{
     "youcompleteme  默认tab  s-tab 和自动补全冲突
-    let g:ycm_key_list_select_completion=['<c-n>']
+    let g:ycm_key_list_select_completion=['<c-j>']
     let g:ycm_key_list_select_completion = ['<Down>']
     let g:ycm_key_list_previous_completion=['<c-p>']
     let g:ycm_key_list_previous_completion = ['<Up>']
@@ -360,6 +361,7 @@ call plug#end()
     let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
     let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
     let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
+    let g:SuperTabDefaultCompletionType = '<C-j>'
     let g:ycm_collect_identifiers_from_tags_files = 1
     " 开启语法关键字补全
     let g:ycm_seed_identifiers_with_syntax=1
@@ -408,24 +410,36 @@ call plug#end()
     " 进入对应filetype的snippets进行编辑
     map <leader>us :UltiSnipsEdit<CR>
 
-    " ctrl+j/k 进行选择
-    func! g:JInYCM()
-        if pumvisible()
-            return "\<C-n>"
-        else
-            return "\<c-j>"
-        endif
-    endfunction
+    let g:acp_enableAtStartup = 0
 
-    func! g:KInYCM()
-        if pumvisible()
-            return "\<C-p>"
-        else
-            return "\<c-k>"
-        endif
-    endfunction
-    inoremap <c-j> <c-r>=g:JInYCM()<cr>
-    au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
+
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+    " ctrl+j/k 进行选择
+    " func! g:JInYCM()
+        " if pumvisible()
+            " return "\<C-n>"
+        " else
+            " return "\<c-j>"
+        " endif
+    " endfunction
+
+    " func! g:KInYCM()
+        " if pumvisible()
+            " return "\<C-p>"
+        " else
+            " return "\<c-k>"
+        " endif
+    " endfunction
+    " inoremap <c-j> <c-r>=g:JInYCM()<cr>
+    " au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
     let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 " }}}
 
@@ -437,10 +451,12 @@ call plug#end()
     au FileType vim let delimitMate_matchpairs = "(:),[:],{:}"
     " 关闭某些类型文件的自动补全
     "au FileType mail let b:delimitMate_autoclose = 0
+    " au FileType html let b:delimitMate_autoclose = 0
 " }}}
 
 
 " closetag {{{
+    let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
     let g:closetag_html_style=1
 " }}}
 
@@ -794,7 +810,14 @@ call plug#end()
     let g:vim_json_syntax_conceal = 0
 " }}}
 
-" css {{{
+" html {{{
+    " emmet
+    let g:user_emmet_install_global = 0
+    autocmd FileType html,css EmmetInstall
+    let g:user_emmet_leader_key='<F2>'
+    let g:user_emmet_expandabbr_key = '<Tab>'
+    " web-api
+    " let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.snippets_custom.json')), "\n"))
 " }}}
 
 " nginx {{{
@@ -819,3 +842,5 @@ call plug#end()
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------
+
+

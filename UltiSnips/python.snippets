@@ -174,3 +174,34 @@ snippet dk "api doc"
         code:
 
 endsnippet
+################################################
+# flask snips
+###############################################
+snippet frg "flask route snippet for method get"
+@${1:app}.route('${2:/}', methods=['GET'])
+endsnippet
+snippet frp "flask route snippet for method post"
+@${1:app}.route('${2:/}', methods=['POST'])
+endsnippet
+snippet fra "flask route snippet for method post and get "
+@${1:app}.route('${2:/}', methods=['GET','POST'])
+endsnippet
+
+###############################################
+# unittest snips
+###############################################
+snippet ut "a snippet for unitest"
+import unittest
+
+class ${1:Something}TestCase(unittest.TestCase):
+
+	def setUp(self):
+		"""${2:TODO: Docstring for setUp.}
+		:returns: TODO
+
+		"""
+		${3:pass}
+
+	def tearDown(self):
+		${4:pass}
+endsnippet
